@@ -1,56 +1,81 @@
 import math
 
 
-class Triangle():
-    def __init__(self, base, height):
-        self.base = base
-        self.height = height
+class GeoFigure:
+    def area(self, class_obj,result):
+        print(class_obj.__name__ + ' area is: ' + str(result))
+
+    def test_input_value(self, class_obj, value):
+        user_input = raw_input('Enter the {0} of {1}:'.format(value, class_obj.__name__))
+        if GeoFigure.is_value_number(self, user_input):
+            if user_input >= 0:
+                return user_input
+            else:
+                if user_input.lower() == 'exit':
+                    return
+                else:
+                    print ("Invalid value.")
+                    self.test_input_value(class_obj, value)
+        elif user_input.lower() == 'exit':
+            return
+        else:
+            print ("Invalid value.")
+            self.test_input_value(class_obj, value)
+
+    @staticmethod
+    def is_value_number(self, value):
+        try:
+            float(value)
+            return True
+        except ValueError:
+            return False
+
+
+class Triangle(GeoFigure):
+    def __init__(self):
+        self.base = GeoFigure().test_input_value(Triangle,'base')
+        self.height = GeoFigure().test_input_value(Triangle, 'height')
 
     def area(self):
-        area = 0.5 * float(self.base) * float(self.height)
-        print("Triangle area is: " + str(area))
+        result = 0.5 * float(self.base) * float(self.height)
+        GeoFigure().area(Triangle, result)
 
-class Rectangle():
-    def __init__(self, length, width ):
-        self.length = length
-        self.width = width
+
+class Rectangle(GeoFigure):
+    def __init__(self):
+        self.length = GeoFigure().test_input_value(Rectangle,'length')
+        self.width = GeoFigure().test_input_value(Rectangle,'width')
 
     def area(self):
         area = float(self.length) * float(self.width)
-        print("Rectangle area is: " + str(area))
+        GeoFigure().area(Rectangle, area)
 
-class Circle():
-    def __init__(self, radius):
-        self.radius = radius
+
+class Circle(GeoFigure):
+    def __init__(self):
+        self.radius =  GeoFigure().test_input_value(Circle,'radius')
 
     def area(self):
         area = 2 * math.pi * float(self.radius)
-        print("Circle area is: " + str(area))
+        GeoFigure().area(Circle, area)
+
 
 def main():
     while True:
-        userInput = raw_input(
+        user_input = raw_input(
             'Enter "Triangle", "Rectangle" or "Circle" to get the area. \nEnter "exit" to exit:')
-        if ((userInput.lower() == 'triangle') | (userInput.lower() == 'rectangle') | (userInput.lower() == 'circle')):
-            result_class = ''
-            if (userInput.lower() == 'triangle'):
-                userInput = raw_input('Enter the base of triangle:')
-                base = userInput
-                userInput = raw_input('Enter the height of triangle:')
-                height = userInput
-                result_class = Triangle(base,height)
-            elif (userInput.lower() == 'rectangle'):
-                userInput = raw_input('Enter the length of rectangle:')
-                length = userInput
-                userInput = raw_input('Enter the width of rectangle:')
-                width = userInput
-                result_class = Rectangle(length, width)
-            elif (userInput.lower() == 'circle'):
-                userInput = raw_input('Enter the radius of circle:')
-                result_class = Circle(userInput)
-            result_class.area()
-        elif (userInput.lower() == 'exit'):
+        figures_mass = [Triangle, Rectangle, Circle]
+        is_input_figure = False
+        for figure in figures_mass:
+            if user_input.lower() == figure.__name__.lower():
+                figure().area()
+                is_input_figure = True
+                break
+
+        if user_input.lower() == 'exit':
             break
+        elif is_input_figure == False:
+            print('Invalid data. Please try again')
         else:
             print('Invalid data. Please try again')
 
