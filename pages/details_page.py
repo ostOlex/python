@@ -14,3 +14,6 @@ class DetailsPage(BasePage):
 
     def get_count_of_comments(self):
         return len(self.driver.find_elements_by_class_name('views-row'))
+
+    def get_product_title(self):
+        return self.driver.find_element_by_tag_name('h1').text.encode("utf-8")
