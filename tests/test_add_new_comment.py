@@ -4,6 +4,7 @@ from pages.details_page import DetailsPage
 
 def test_add_new_comment(driver_fixture):
     details_page = DetailsPage(driver_fixture)
+    details_page.close_sleek_element()
     details_page.click_comments_tab()
     modal_window = details_page.click_add_comment_button()
     modal_window.fill_in_field_by_name('Тема', 'qweqe')
