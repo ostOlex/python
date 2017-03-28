@@ -12,6 +12,9 @@ def test_add_new_comment(driver_fixture):
     modal_window.fill_in_field_by_name('Місто', 'qweqe')
     modal_window.fill_in_field_by_name('Email', 'qweqe')
     modal_window.fill_in_textarea_field_by_name('Відгук', 'wadsf')
+    modal_window.click_rating_star()
+    modal_window.click_submit()
+    assert True == modal_window.is_validation_error_present()
 
 
 
